@@ -55,6 +55,12 @@ const examples = [
     description: 'A Server Components-based Todo app integrated with SQLite and Prisma ORM.',
     color: 'from-fuchsia-500 to-purple-500',
   },
+  {
+    title: 'Unstorage KV',
+    href: '/examples/unstorage',
+    description: 'A playground to test universal Key-Value storage via unstorage.',
+    color: 'from-violet-500 to-purple-500',
+  },
 ];
 
 export default function ExamplesPage() {
