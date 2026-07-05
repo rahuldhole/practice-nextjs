@@ -43,6 +43,12 @@ const examples = [
     description: 'A scalable pattern separating Data Access (Service), Server Actions (Controller), and UI (View).',
     color: 'from-blue-500 to-indigo-500',
   },
+  {
+    title: 'API-First Todo',
+    href: '/examples/todo-api-first',
+    description: 'A classic API-driven architecture using Next.js Route Handlers and TanStack React Query.',
+    color: 'from-emerald-500 to-teal-500',
+  },
 ];
 
 export default function ExamplesPage() {
