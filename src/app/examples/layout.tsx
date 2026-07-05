@@ -39,6 +39,12 @@ export default function ExamplesLayout({
               >
                 Blog
               </Link>
+              <Link
+                href="/examples/nextjs-design-patterns"
+                className="flex items-center text-sm font-medium text-slate-300 hover:text-white transition-colors"
+              >
+                Patterns
+              </Link>
             </nav>
           </div>
         </div>

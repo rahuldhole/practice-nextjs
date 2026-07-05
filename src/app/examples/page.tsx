@@ -25,6 +25,12 @@ const examples = [
     description: 'A simple blog application demonstrating Next.js routing and data fetching.',
     color: 'from-orange-500 to-amber-500',
   },
+  {
+    title: 'Design Patterns',
+    href: '/examples/nextjs-design-patterns',
+    description: 'Explore advanced React and Next.js 14+ architectural patterns including Server Components.',
+    color: 'from-fuchsia-500 to-rose-500',
+  },
 ];
 
 export default function ExamplesPage() {
