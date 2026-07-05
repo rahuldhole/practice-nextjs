@@ -151,7 +151,7 @@ export default function UnstorageExample() {
             <p className="text-sm text-slate-300">{message}</p>
             {type === 'blob' && result !== null && (
               <a 
-                href={`/examples/unstorage/share/${encodeURIComponent(key)}`} 
+                href={`/examples/storage/share/${encodeURIComponent(key)}`} 
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block mt-2 text-sm text-indigo-400 hover:text-indigo-300 underline"

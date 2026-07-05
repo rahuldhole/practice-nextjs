@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 export async function setKvValue(key: string, value: string) {
   if (!key) throw new Error('Key is required');
   await kvStorage.setItem(key, value);
-  revalidatePath('/examples/unstorage');
+  revalidatePath('/examples/storage');
 }
 
 export async function getKvValue(key: string) {
@@ -19,30 +19,28 @@ export async function getKvValue(key: string) {
 export async function removeKvValue(key: string) {
   if (!key) throw new Error('Key is required');
   await kvStorage.removeItem(key);
-  revalidatePath('/examples/unstorage');
+  revalidatePath('/examples/storage');
 }
 
 // Blob Actions
 export async function setBlobValue(key: string, value: string) {
   if (!key) throw new Error('Key is required');
   await blobStorage.setItem(key, value);
-  revalidatePath('/examples/unstorage');
-}
-
-export async function getBlobValue(key: string) {
-  if (!key) return null;
-  const value = await blobStorage.getItem(key);
-  return value as string | null;
+  revalidatePath('/examples/storage');
 }
 
 export async function getBlobMeta(key: string) {
   if (!key) return null;
-  const meta = await blobStorage.getMeta(key);
-  return meta;
+  return await blobStorage.getMeta(key);
+}
+
+export async function getBlobValue(key: string) {
+  if (!key) return null;
+  return await blobStorage.getItem(key);
 }
 
 export async function removeBlobValue(key: string) {
   if (!key) throw new Error('Key is required');
   await blobStorage.removeItem(key);
-  revalidatePath('/examples/unstorage');
+  revalidatePath('/examples/storage');
 }
