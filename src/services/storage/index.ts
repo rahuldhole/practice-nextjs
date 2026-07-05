@@ -10,9 +10,11 @@ const USE_VERCEL_BLOB = IS_PROD && !!process.env.BLOB_READ_WRITE_TOKEN;
 const LOCAL_KV_PATH = path.join(process.cwd(), '.data', 'kv.json');
 const LOCAL_BLOB_DIR = path.join(process.cwd(), '.data', 'blob');
 
+const memoryKV = new Map<string, any>();
+
 // Helper to ensure local directories exist
 async function ensureLocalDirs() {
-  if (USE_VERCEL_KV && USE_VERCEL_BLOB) return;
+  if (IS_PROD) return; // Vercel is read-only, never try to touch fs in prod
   await fs.mkdir(LOCAL_BLOB_DIR, { recursive: true });
   try {
     await fs.access(LOCAL_KV_PATH);
@@ -26,6 +28,7 @@ export const kvStorage = {
     if (USE_VERCEL_KV) {
       return await kv.get<T>(key);
     }
+    if (IS_PROD) return memoryKV.get(key) ?? null;
     await ensureLocalDirs();
     const data = JSON.parse(await fs.readFile(LOCAL_KV_PATH, 'utf-8'));
     return data[key] ?? null;
@@ -33,6 +36,10 @@ export const kvStorage = {
   async setItem(key: string, value: any): Promise<void> {
     if (USE_VERCEL_KV) {
       await kv.set(key, value);
+      return;
+    }
+    if (IS_PROD) {
+      memoryKV.set(key, value);
       return;
     }
     await ensureLocalDirs();
@@ -43,6 +50,10 @@ export const kvStorage = {
   async removeItem(key: string): Promise<void> {
     if (USE_VERCEL_KV) {
       await kv.del(key);
+      return;
+    }
+    if (IS_PROD) {
+      memoryKV.delete(key);
       return;
     }
     await ensureLocalDirs();
@@ -81,7 +92,9 @@ export const blobStorage = {
     if (USE_VERCEL_BLOB) {
       const meta = await this.getMeta(key);
       if (!meta || !meta.downloadUrl) return null;
-      const res = await fetch(meta.downloadUrl);
+      const res = await fetch(meta.downloadUrl, {
+        headers: { authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` }
+      });
       if (!res.ok) return null;
       return await res.text();
     }
@@ -96,7 +109,9 @@ export const blobStorage = {
     if (USE_VERCEL_BLOB) {
       const meta = await this.getMeta(key);
       if (!meta || !meta.downloadUrl) return null;
-      const res = await fetch(meta.downloadUrl);
+      const res = await fetch(meta.downloadUrl, {
+        headers: { authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` }
+      });
       if (!res.ok) return null;
       return Buffer.from(await res.arrayBuffer());
     }
