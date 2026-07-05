@@ -35,6 +35,12 @@ export async function getBlobValue(key: string) {
   return value as string | null;
 }
 
+export async function getBlobMeta(key: string) {
+  if (!key) return null;
+  const meta = await blobStorage.getMeta(key);
+  return meta;
+}
+
 export async function removeBlobValue(key: string) {
   if (!key) throw new Error('Key is required');
   await blobStorage.removeItem(key);

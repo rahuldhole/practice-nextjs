@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { setKvValue, getKvValue, removeKvValue, setBlobValue, getBlobValue, removeBlobValue } from './actions';
+import { setKvValue, getKvValue, removeKvValue, setBlobValue, getBlobValue, removeBlobValue, getBlobMeta } from './actions';
 import Link from 'next/link';
 
 type StorageType = 'kv' | 'blob';
@@ -37,6 +37,19 @@ export default function UnstorageExample() {
         displayVal = JSON.stringify(val, null, 2);
       }
       setResult(displayVal !== null ? String(displayVal) : 'Not found');
+
+      if (type === 'blob' && val !== null) {
+        try {
+          const meta = await getBlobMeta(key);
+          if (meta && meta.url) {
+            setMessage(`Successfully retrieved "${key}" from BLOB. Public URL: ${meta.url}`);
+            return;
+          }
+        } catch (e) {
+          // ignore meta fetch error
+        }
+      }
+
       setMessage(`Successfully retrieved "${key}" from ${type.toUpperCase()}`);
     } catch (err) {
       setMessage(`Error getting value.`);
