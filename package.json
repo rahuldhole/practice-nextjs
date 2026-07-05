@@ -6,7 +6,15 @@
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:prisma:generate": "prisma generate",
+    "db:prisma:push": "prisma db push",
+    "db:prisma:migrate": "prisma migrate dev",
+    "db:prisma:studio": "prisma studio",
+    "db:drizzle:generate": "drizzle-kit generate",
+    "db:drizzle:push": "drizzle-kit push",
+    "db:drizzle:migrate": "drizzle-kit migrate",
+    "db:drizzle:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
