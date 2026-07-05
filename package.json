@@ -14,7 +14,8 @@
     "db:drizzle:generate": "drizzle-kit generate",
     "db:drizzle:push": "drizzle-kit push",
     "db:drizzle:migrate": "drizzle-kit migrate",
-    "db:drizzle:studio": "drizzle-kit studio"
+    "db:drizzle:studio": "drizzle-kit studio",
+    "db:prod:migrate": "prisma migrate deploy && drizzle-kit migrate"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
