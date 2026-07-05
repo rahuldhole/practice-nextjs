@@ -149,6 +149,16 @@ export default function UnstorageExample() {
         {message && (
           <div className="mt-8 p-4 bg-slate-800/50 border border-slate-700 rounded-lg">
             <p className="text-sm text-slate-300">{message}</p>
+            {type === 'blob' && result !== null && (
+              <a 
+                href={`/examples/unstorage/share/${encodeURIComponent(key)}`} 
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block mt-2 text-sm text-indigo-400 hover:text-indigo-300 underline"
+              >
+                Open Shareable Blob Link ↗
+              </a>
+            )}
             {result !== null && (
               <div className="mt-2 font-mono bg-slate-900 p-3 rounded border border-slate-800 text-emerald-400 overflow-x-auto whitespace-pre-wrap break-words">
                 {result}
