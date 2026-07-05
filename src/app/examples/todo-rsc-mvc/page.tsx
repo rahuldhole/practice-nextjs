@@ -2,6 +2,9 @@ import { TodoService } from "./todo.service";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
+/** Skip static prerendering — the DB doesn't exist at build time on Vercel. */
+export const dynamic = "force-dynamic";
+
 /**
  * React Server Component (Acts as a Controller to prepare the View)
  * It fetches data using the Model/Service and passes it to the View (Client Components).

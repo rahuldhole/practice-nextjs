@@ -4,6 +4,9 @@ import { desc } from "drizzle-orm";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
+/** Skip static prerendering — the DB doesn't exist at build time on Vercel. */
+export const dynamic = "force-dynamic";
+
 export default async function TodoPage() {
   const allTodos = await db.select().from(todos).orderBy(desc(todos.id));
 
