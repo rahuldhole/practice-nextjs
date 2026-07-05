@@ -27,11 +27,10 @@ function isRemotePostgresUrl(url: string): boolean {
 
 async function createAdapter() {
   const driver = process.env.DATABASE_DRIVER;
-  const url = process.env.DATABASE_URL ?? '';
+  const url = process.env.DATABASE_URL;
 
   const useNeon =
-    driver === 'neon' ||
-    (driver !== 'pglite' && isRemotePostgresUrl(url));
+    url && (driver === 'neon' || (driver !== 'pglite' && isRemotePostgresUrl(url)));
 
   if (useNeon) {
     const { PrismaNeonHttp } = await import('@prisma/adapter-neon');
