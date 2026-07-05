@@ -1,4 +1,6 @@
 import { Suspense } from 'react';
+
+export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import type { PrismaTodo } from '@/generated/prisma/client';
 import { TodoService } from './todo.service';
