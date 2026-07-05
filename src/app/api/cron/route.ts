@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { myWorkflow } from '../../examples/workflow/actions';
+import { myWorkflow } from '../../examples/workflow/workflow';
 
 export async function GET(request: Request) {
   // 1. Security Check: Ensure the request comes from Vercel Cron
