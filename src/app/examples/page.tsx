@@ -37,6 +37,12 @@ const examples = [
     description: 'A Server Components-based Todo app integrated with SQLite and Drizzle ORM.',
     color: 'from-indigo-500 to-cyan-500',
   },
+  {
+    title: 'Enterprise MVC Todo',
+    href: '/examples/todo-rsc-mvc',
+    description: 'A scalable pattern separating Data Access (Service), Server Actions (Controller), and UI (View).',
+    color: 'from-blue-500 to-indigo-500',
+  },
 ];
 
 export default function ExamplesPage() {

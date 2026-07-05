@@ -57,13 +57,13 @@ export default function Home() {
               <p className="text-slate-400 text-sm leading-relaxed">A Server Components-based Todo app integrated with SQLite and Drizzle ORM.</p>
             </Link>
 
-            <div className="flex flex-col items-start p-6 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-900 transition-colors">
-              <div className="p-3 bg-blue-500/10 rounded-xl mb-4 text-blue-400">
+            <Link href="/examples/todo-rsc-mvc" className="group flex flex-col items-start p-6 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-900 transition-colors cursor-pointer">
+              <div className="p-3 bg-blue-500/10 rounded-xl mb-4 text-blue-400 group-hover:scale-110 transition-transform">
                 <Code2 className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-slate-200 mb-2">App Router</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Leveraging the latest Next.js 14 routing paradigms and Server Components.</p>
-            </div>
+              <h3 className="text-xl font-bold text-slate-200 mb-2 group-hover:text-blue-400 transition-colors">Enterprise MVC Todo</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">A scalable pattern separating Data Access (Service), Server Actions (Controller), and UI (View).</p>
+            </Link>
 
             <div className="flex flex-col items-start p-6 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-900 transition-colors">
               <div className="p-3 bg-teal-500/10 rounded-xl mb-4 text-teal-400">
