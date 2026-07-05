@@ -31,6 +31,12 @@ const examples = [
     description: 'Explore advanced React and Next.js 14+ architectural patterns including Server Components.',
     color: 'from-fuchsia-500 to-rose-500',
   },
+  {
+    title: 'RSC Todo App',
+    href: '/examples/todo-rsc',
+    description: 'A Server Components-based Todo app integrated with SQLite and Drizzle ORM.',
+    color: 'from-indigo-500 to-cyan-500',
+  },
 ];
 
 export default function ExamplesPage() {
