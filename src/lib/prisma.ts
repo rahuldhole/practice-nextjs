@@ -2,8 +2,11 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 
 const prismaClientSingleton = () => {
+  console.log('DATABASE_URL from env:', process.env.DATABASE_URL);
+  const dbUrl = process.env.DATABASE_URL || 'file:./dev.db';
+  console.log('Using database URL:', dbUrl);
   const adapter = new PrismaBetterSqlite3({
-    url: process.env.DATABASE_URL || 'file:./dev.db',
+    url: dbUrl,
   });
   return new PrismaClient({ adapter });
 };
