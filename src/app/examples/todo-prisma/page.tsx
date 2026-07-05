@@ -1,12 +1,11 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import prisma from '@/lib/prisma';
+import type { PrismaTodo } from '@prisma/client';
+import { TodoService } from './todo.service';
 import { createTodo, deleteTodo, toggleTodo } from './actions';
 
 async function TodoList() {
-  const todos = await prisma.prismaTodo.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
+  const todos = await TodoService.getTodos();
 
   return (
     <div className="space-y-4">
@@ -14,7 +13,7 @@ async function TodoList() {
         <p className="text-slate-500 text-center py-8">No tasks yet. Add one above!</p>
       ) : (
         <ul className="space-y-3">
-          {todos.map((todo) => (
+          {todos.map((todo: PrismaTodo) => (
             <li
               key={todo.id}
               className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
