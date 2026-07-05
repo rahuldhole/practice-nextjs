@@ -15,6 +15,7 @@
     "db:drizzle:generate": "drizzle-kit generate",
     "db:drizzle:push": "drizzle-kit push",
     "db:drizzle:migrate": "drizzle-kit migrate",
+    "db:drizzle:migrate:prod": "drizzle-kit migrate",
     "db:drizzle:studio": "drizzle-kit studio",
     "db:prod:migrate": "pnpm run db:prisma:generate && pnpm run db:prisma:migrate:prod && pnpm run db:drizzle:migrate:prod"
   },
