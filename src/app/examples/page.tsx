@@ -68,6 +68,12 @@ const examples = [
     color: 'from-pink-500 to-rose-500',
   },
   {
+    title: 'Better Auth App',
+    href: '/examples/better-auth',
+    description: 'A pure Better Auth integration with Next.js Route Handlers and Prisma adapter.',
+    color: 'from-purple-500 to-fuchsia-500',
+  },
+  {
     title: 'Vercel Cron Jobs',
     href: '/api/cron',
     description: 'An automated scheduled task that triggers a background workflow daily.',
