@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { NEON_AUTH_URL, neonSignIn, neonSignUp, neonGetSession } from '@/lib/neon-auth';
+import { NEON_AUTH_URL, neonSignIn, neonSignUp, neonGetSession, neonSignInSocial } from '@/lib/neon-auth';
 
 export async function GET(request: Request) {
   try {
@@ -19,25 +19,31 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { action, email, password, name } = body;
+  const { action, email, password, name, provider, callbackURL } = body;
   const origin = request.headers.get('origin') || 'http://localhost:3000';
+
+  const applyCookies = (sourceHeaders: Headers, targetResponse: NextResponse) => {
+    const setCookies = sourceHeaders.getSetCookie();
+    for (const cookie of setCookies) {
+      targetResponse.headers.append('Set-Cookie', cookie);
+    }
+  };
 
   try {
     if (action === 'sign-up') {
       const { data, headers } = await neonSignUp(email, password, name, origin);
       const response = NextResponse.json(data);
-      const setCookie = headers.get('set-cookie');
-      if (setCookie) {
-        response.headers.set('set-cookie', setCookie);
-      }
+      applyCookies(headers, response);
       return response;
     } else if (action === 'sign-in') {
       const { data, headers } = await neonSignIn(email, password, origin);
       const response = NextResponse.json(data);
-      const setCookie = headers.get('set-cookie');
-      if (setCookie) {
-        response.headers.set('set-cookie', setCookie);
-      }
+      applyCookies(headers, response);
+      return response;
+    } else if (action === 'sign-in-social') {
+      const { data, headers } = await neonSignInSocial(provider || 'google', callbackURL || origin, origin);
+      const response = NextResponse.json(data);
+      applyCookies(headers, response);
       return response;
     } else if (action === 'sign-out') {
       const res = await fetch(`${NEON_AUTH_URL}/sign-out`, {
@@ -49,10 +55,7 @@ export async function POST(request: Request) {
       });
       const data = await res.json().catch(() => ({}));
       const response = NextResponse.json(data);
-      const setCookie = res.headers.get('set-cookie');
-      if (setCookie) {
-        response.headers.set('set-cookie', setCookie);
-      }
+      applyCookies(res.headers, response);
       return response;
     }
 

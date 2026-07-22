@@ -75,3 +75,23 @@ export async function neonGetSession(cookieHeader?: string, authHeader?: string)
     return null;
   }
 }
+
+export async function neonSignInSocial(provider: string, callbackURL: string, origin = 'http://localhost:3000') {
+  const res = await fetch(`${NEON_AUTH_URL}/sign-in/social`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Origin: origin,
+    },
+    body: JSON.stringify({
+      provider,
+      callbackURL,
+    }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.message || data.code || 'Neon Auth social sign in failed');
+  }
+  return { data, headers: res.headers };
+}
